@@ -12,13 +12,14 @@ public:
 		BOT
 	};
 
-	Node(std::tuple<int, int> position, MazeGraph::PARTS part);
-	MazeGraph::PARTS part;
+	Node(std::tuple<int, int> position, int part);
+	int part;
 	std::tuple<int, int> left_neighbour;
 	std::tuple<int, int> right_neighbour;
 	std::tuple<int, int> top_neighbour;
 	std::tuple<int, int> bot_neighbour;
-	std::tuple<int, int> GetNeighbour(DIRECTION direction);
+	std::tuple<int, int> GetNeighbour(DIRECTION direction, MazeGraph maze);
+	void GetNeighbours();
 	std::tuple<int, int> position;
 };
 

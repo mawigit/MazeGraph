@@ -1,2 +1,14 @@
 ﻿  main.cpp
-  MazeGraph.vcxproj -> C:\sandbox\C++\APRG\MazeGraph\x64\Debug\MazeGraph.exe
+C:\sandbox\C++\APRG\MazeGraph\MazeGraph\Node.h(21,57): error C2061: syntax error: identifier 'MazeGraph'
+  MazeGraph.cpp
+C:\sandbox\C++\APRG\MazeGraph\MazeGraph\Node.h(21,57): error C2061: syntax error: identifier 'MazeGraph'
+  Node.cpp
+C:\sandbox\C++\APRG\MazeGraph\MazeGraph\MazeGraph.h(19,14): error C2065: 'Node': undeclared identifier
+C:\sandbox\C++\APRG\MazeGraph\MazeGraph\MazeGraph.h(19,7): error C2923: 'std::vector': 'Node' is not a valid template type argument for parameter '_Ty'
+C:\sandbox\C++\APRG\MazeGraph\MazeGraph\MazeGraph.h(19,14): message : see declaration of 'Node'
+C:\sandbox\C++\APRG\MazeGraph\MazeGraph\MazeGraph.h(19,7): error C2976: 'std::vector': too few template arguments
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\vector(438,1): message : see declaration of 'std::vector'
+C:\sandbox\C++\APRG\MazeGraph\MazeGraph\MazeGraph.h(23,7): error C3646: 'GetNode': unknown override specifier
+C:\sandbox\C++\APRG\MazeGraph\MazeGraph\MazeGraph.h(23,14): error C2059: syntax error: '('
+C:\sandbox\C++\APRG\MazeGraph\MazeGraph\MazeGraph.h(23,16): error C2238: unexpected token(s) preceding ';'
+  Generating Code...
