@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2D.h"
+#include <vector>
 
 class Node
 {
@@ -11,13 +12,11 @@ public:
 		START = 2,
 		EXIT = 3
 	};
-	Node(size_t id, Vector2D position, PARTS part) : id(id), position(position), part(part) {};
-	size_t id;
+	Node(int id, Vector2D position, PARTS part) : id(id), position(position), part(part) {};
+	int id;
 	PARTS part;
-	Vector2D left_neighbour;
-	Vector2D right_neighbour;
-	Vector2D top_neighbour;
-	Vector2D bot_neighbour;
+	std::vector<int> neighbourIDs;
 	Vector2D position;
+	bool beenVisited = false;
 };
 

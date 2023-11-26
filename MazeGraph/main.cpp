@@ -3,13 +3,9 @@
 
 int main()
 {
-	MazeGraph mg(5, 5, 1);
+	MazeGraph mg(10, 10, 99);
 	mg.SetGetStart();
 	mg.SetGetExit();
 	mg.SetNeighbours();
-
-	for (Node n : mg.maze)
-	{
-		std::cout << "ID: " << n.id << " ROW: " << n.position.x << " PART: " << n.part << std::endl;
-	}
+	mg.FindPath();
 }

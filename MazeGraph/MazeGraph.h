@@ -26,6 +26,13 @@ public:
 	void SetNeighbours();
 	void SetGetStart();
 	void SetGetExit();
-	size_t startNodeID;
-	size_t exitNodeID;
+	int startNodeID;
+	int exitNodeID;
+	void FindPath();
+	std::vector<int> path;
+	int GetPossibleNeighbourID(Node node);
+	bool NodeBeenVisited(Node node);
+	void PrintPath();
+	template <typename T>
+	void EraseFromVector(std::vector<T>& in, T value);
 };

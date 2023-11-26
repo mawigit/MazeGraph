@@ -1,2 +1,4 @@
-﻿  main.cpp
-  MazeGraph.vcxproj -> C:\Users\marku\Documents\FH\Advanced Programming\MazeGraph\x64\Debug\MazeGraph.exe
+﻿  MazeGraph.cpp
+C:\sandbox\C++\APRG\MazeGraph\MazeGraph\MazeGraph.cpp(12,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\sandbox\C++\APRG\MazeGraph\MazeGraph\MazeGraph.cpp(135): warning C4715: 'MazeGraph::GetPossibleNeighbourID': not all control paths return a value
+  MazeGraph.vcxproj -> C:\sandbox\C++\APRG\MazeGraph\x64\Debug\MazeGraph.exe
