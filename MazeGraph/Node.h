@@ -1,25 +1,23 @@
 #pragma once
-#include "MazeGraph.h"
+#include "Vector2D.h"
 
 class Node
 {
 public:
-	enum DIRECTION
+	enum PARTS
 	{
-		LEFT,
-		RIGHT,
-		TOP,
-		BOT
+		WALL = 0,
+		PATH = 1,
+		START = 2,
+		EXIT = 3
 	};
-
-	Node(std::tuple<int, int> position, int part);
-	int part;
-	std::tuple<int, int> left_neighbour;
-	std::tuple<int, int> right_neighbour;
-	std::tuple<int, int> top_neighbour;
-	std::tuple<int, int> bot_neighbour;
-	std::tuple<int, int> GetNeighbour(DIRECTION direction, MazeGraph maze);
-	void GetNeighbours();
-	std::tuple<int, int> position;
+	Node(size_t id, Vector2D position, PARTS part) : id(id), position(position), part(part) {};
+	size_t id;
+	PARTS part;
+	Vector2D left_neighbour;
+	Vector2D right_neighbour;
+	Vector2D top_neighbour;
+	Vector2D bot_neighbour;
+	Vector2D position;
 };
 

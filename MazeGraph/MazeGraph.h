@@ -3,22 +3,29 @@
 #include <iostream>
 #include <algorithm>
 #include <random>
-#include <tuple>
+#include "Vector2D.h"
 #include "Node.h"
 
 class MazeGraph
 
 {
 public:
-	const int WALL = 0, PATH = 1, START = 2, EXIT = 3;
-
+	enum DIRECTION
+	{
+		LEFT,
+		RIGHT,
+		TOP,
+		BOT
+	};
 	MazeGraph(int rows, int cols, int seed);
 	int seed;
 	int rows;
 	int cols;
 	std::vector<Node> maze;
-	void PrintMaze();
-	void SetStart();
-	void SetExit();
-	Node GetNode();
+	void PrintGraph();
+	void SetNeighbours();
+	void SetGetStart();
+	void SetGetExit();
+	size_t startNodeID;
+	size_t exitNodeID;
 };
