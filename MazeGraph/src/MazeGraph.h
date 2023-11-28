@@ -24,15 +24,19 @@ public:
 	std::vector<Node> maze;
 	void PrintGraph();
 	void SetNeighbours();
-	void SetGetStart();
-	void SetGetExit();
-	int startNodeID;
-	int exitNodeID;
+	void SetStart();
+	int startNode;
+	int exitNode;
 	void FindPath();
 	std::vector<int> path;
-	int GetPossibleNeighbourID(Node node);
-	bool NodeBeenVisited(Node node);
+	int GetNextValidNode(Node& node);
 	void PrintPath();
+	void PlotMaze();
+	void PrintNodes();
+	bool IsEdge(Node node);
+	bool IsTop(Node node);
+
 	template <typename T>
 	void EraseFromVector(std::vector<T>& in, T value);
+	
 };

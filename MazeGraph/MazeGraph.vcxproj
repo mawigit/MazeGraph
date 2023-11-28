@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,16 +128,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Maze.cpp" />
-    <ClCompile Include="MazeGraph.cpp" />
-    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Maze.cpp" />
+    <ClCompile Include="src\MazeGraph.cpp" />
+    <ClCompile Include="src\Node.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Maze.h" />
-    <ClInclude Include="MazeGraph.h" />
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="src\Maze.h" />
+    <ClInclude Include="src\MazeGraph.h" />
+    <ClInclude Include="src\Node.h" />
+    <ClInclude Include="src\Vector2D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitgitnore" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

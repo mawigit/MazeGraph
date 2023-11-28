@@ -37,11 +37,11 @@
 	{
 		for (Node& node : maze)
 		{
-		//	if (node.position.x > 0)
-		//	{
-		//		//return top node -1/gleich
-		//		node.neighbourIDs.push_back(node.id - cols);
-		//	}
+			//if (node.position.x > 0)
+			//{
+			//	//return top node -1/gleich
+			//	node.neighbourIDs.push_back(node.id - cols);
+			//}
 			if (node.position.y < cols -1)
 			{
 			//return right node gleich/+1
@@ -61,69 +61,63 @@
 		}
 	}
 
-	void MazeGraph::SetGetStart()
+	void MazeGraph::SetStart()
 	{
 		Node& node = maze[rand() % rows];
 		node.part = Node::PARTS::START;
-		startNodeID = node.id;
+		startNode = node.id;
 		node.beenVisited = true;
-		std::cout << "Start Node ID: " << startNodeID << std::endl;;
-
-	}
-
-	void MazeGraph::SetGetExit()
-	{
-
-		Node node = maze[maze.size() - rand() % rows];
-		node.part = Node::PARTS::EXIT;
-		exitNodeID = node.id;
-		std::cout << "Exit Node ID: " << exitNodeID <<std::endl;
+		//std::cout << "Start Node ID: " << startNode << std::endl;;
 
 	}
 
 	void MazeGraph::FindPath()
 	{
-		Node* curNode = &maze[startNodeID];
+		Node* curNode = &maze[startNode];
 		path.push_back(curNode->id);
-		while (curNode->id != exitNodeID)
+		while (curNode->position.x != rows-1)
 		{
-			std::cout << curNode->id << std::endl;
-			int neighbourNodeID = GetPossibleNeighbourID(*curNode);
+			int neighbourNodeID = GetNextValidNode(*curNode);
 			curNode = &maze[neighbourNodeID];
 			maze[neighbourNodeID].beenVisited = true;
 			maze[neighbourNodeID].part = Node::PARTS::PATH;
 			path.push_back(neighbourNodeID);
 		}
+		//path.push_back(curNode->id);
+		exitNode = curNode->id;
 	}
 
-	int MazeGraph::GetPossibleNeighbourID(Node node)
+	int MazeGraph::GetNextValidNode(Node& node)
 	{
-		//if target in neighbours, have to take it
-		//for(int i : node.neighbours) {if(i == target) {curNode = target;} if(maze[i].beenVisited except previous) {ok}
 		//cannot choose a node with neighbours that have been visited
 		//if top node chosen - next one may only point away from start, how the fuck do i implement that?!
-		for (int id : node.neighbourIDs)
-		{
-			if (id == exitNodeID)
-			{
-				return id;
-			}
-		}
+		//if current node > startnode, next must be > and vice versa
+		//id current node is edge, next node must be > than start
+
 		std::vector<int> neighbours = node.neighbourIDs;
-		for(int i = 0; i < node.neighbourIDs.size(); i++)
-		{			
-			Node candidate = maze[node.neighbourIDs[rand() % node.neighbourIDs.size()]];
-			EraseFromVector(neighbours, candidate.id);
-			//Is target in candidates neighbours, if yes has to take it
+		std::random_device rng;
+		std::mt19937 urng(rng());
+		std::shuffle(neighbours.begin(), neighbours.end(), urng);
+		//iterate over neighbours of node
+		for(int i : neighbours)
+		{
+			//declare candidate (potential node to be evaluated)
+			Node candidate = maze[i];
+ 			if (candidate.beenVisited)
+			{
+				continue;
+			}
 			std::vector<bool> visitedCount;
+			//interate over neighbours of neighbour
 			for (int id : candidate.neighbourIDs)
 			{
-				if (maze[id].beenVisited)
+				Node subCandidate = maze[id];
+				if (subCandidate.beenVisited)
 				{
 					visitedCount.push_back(true);
 				}
 			}
-			if (visitedCount.size() > 1 || candidate.beenVisited)
+			if (visitedCount.size() > 0)
 			{
 				continue;
 			}
@@ -153,4 +147,60 @@
 		in.erase(std::remove(in.begin(), in.end(), value), in.end());
 	};
 
+	void MazeGraph::PlotMaze()
+	{
+		int prevRow = 0;
+		for (Node node : maze)
+		{
+			if (node.position.x == prevRow)
+			{
+				if (node.part == Node::PARTS::START || node.part == Node::PARTS::PATH || node.part == Node::PARTS::EXIT)
+				{
+					std::cout << "1";
+				}
+				else
+				{
+					std::cout << "0";
+				}
+			}
+			else
+			{
+				if (node.part == Node::PARTS::START || node.part == Node::PARTS::PATH || node.part == Node::PARTS::EXIT)
+				{
+					std::cout << "\n1";
+				}
+				else
+				{
+					std::cout << "\n0";
+				}
+			}
+			prevRow = node.position.x;
+		}
+
+	}
+
+	void MazeGraph::PrintNodes()
+	{
+		for (Node n : maze)
+			for(int i : n.neighbourIDs)
+		{
+				std::cout << n.id << ": " << i << std::endl;
+		}
+	}
+
+	bool MazeGraph::IsEdge(Node node)
+	{
+		if (node.position.y == 0 || node.position.y == (cols - 1))
+		{
+			return true;
+		}
+	}
+
+	bool MazeGraph::IsTop(Node node)
+	{
+		if (node.position.x == 0)
+		{
+			return true;
+		}
+	}
 

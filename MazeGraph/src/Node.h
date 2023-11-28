@@ -18,5 +18,6 @@ public:
 	std::vector<int> neighbourIDs;
 	Vector2D position;
 	bool beenVisited = false;
+
 };
 
