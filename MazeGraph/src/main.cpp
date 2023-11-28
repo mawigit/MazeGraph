@@ -4,6 +4,6 @@
 int main()
 {
 	MazeGraph mg(5, 5, 10);
-	mg.NextStep();
-	mg.NextStep();
+	mg.FindPath();
+
 }

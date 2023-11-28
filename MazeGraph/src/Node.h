@@ -12,8 +12,8 @@ public:
 		START = 2,
 		EXIT = 3
 	};
-	Node();
-	Node(int id, Vector2D position, PARTS part) : id(id), position(position), part(part) {};
+	Node(int id, Vector2D position, PARTS part, int origin) : id(id), position(position), part(part), origin(origin) {};
+	Node() {};
 	int id;
 	PARTS part;
 	std::vector<int> neighbourIDs;

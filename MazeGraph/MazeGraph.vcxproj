@@ -131,7 +131,6 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Maze.cpp" />
     <ClCompile Include="src\MazeGraph.cpp" />
-    <ClCompile Include="src\Node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Maze.h" />

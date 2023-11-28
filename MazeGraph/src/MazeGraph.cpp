@@ -9,7 +9,7 @@
 		{
 			for (int c = 0; c < cols; c++)
 			{
-				maze.push_back(Node(maze.size(), Vector2D(r, c), Node::PARTS::WALL));
+				maze.push_back(Node(maze.size(), Vector2D(r, c), Node::PARTS::WALL, 0));
 			}
 		}
 		SetStart();
@@ -69,67 +69,71 @@
 	{
 		Node& node = maze[rand() % rows];
 		node.part = Node::PARTS::START;
-		startNode = &node;
+		startNode = node;
 		node.beenVisited = true;
-		std::cout << "START Node ID: " << startNode->id << std::endl;;
+		std::cout << "START Node ID: " << startNode.id << std::endl;;
 	}
 
 	void MazeGraph::SetExit()
 	{
 		Node& node = maze[maze.size() - rand() % rows];
 		node.part = Node::PARTS::EXIT;
-		exitNode = &node;
+		exitNode = node;
 		node.beenVisited = true;
-		std::cout << "EXIT Node ID: " << exitNode->id << std::endl;;
+		std::cout << "EXIT Node ID: " << exitNode.id << std::endl;;
 	}
-/*
 	void MazeGraph::FindPath()
 	{
-		Node* curNode = &maze[startNode];
-		path.push_back(curNode->id);
-		while (curNode->id != exitNode)
+		while (currentNode.id != exitNode.id)
+		{
+			NextStep();
+		}
+	}
+/*
+		Node curNode = &maze[startNode];
+		path.push_back(curNode.id);
+		while (curNode.id != exitNode)
 		{
 			isPrevNode = false;
-			std::cout << curNode->id << std::endl;
+			std::cout << curNode.id << std::endl;
 			int neighbourNodeID = GetNextValidNode(*curNode);
-			maze[neighbourNodeID].origin = curNode->id;
+			maze[neighbourNodeID].origin = curNode.id;
 			curNode = &maze[neighbourNodeID];
 			maze[neighbourNodeID].beenVisited = true;
 			maze[neighbourNodeID].part = Node::PARTS::PATH;
 			path.push_back(neighbourNodeID);
 		}
-		exitNode = curNode->id;
+		exitNode = curNode.id;
 	}
 
 */
-	Node* MazeGraph::GetNextValidNode(Node* node)
+	Node MazeGraph::GetNextValidNode(Node node)
 	{
 		//cannot choose a node with neighbours that have been visited
 		//if top node chosen - next one may only point away from start, how the fuck do i implement that?!
 		//if current node > startnode, next must be > and vice versa
 		//id current node is edge, next node must be > than start
 
-		std::vector<int> neighbours = node->neighbourIDs;
+		std::vector<int> neighbours = node.neighbourIDs;
 		std::random_device rng;
 		std::mt19937 urng(rng());
 		std::shuffle(neighbours.begin(), neighbours.end(), urng);
-		bool noNeighbourFound = false;
 		//iterate over neighbours of node
 		for(int i = 0; i <= neighbours.size()-1; i++)
 		{
 			//declare candidate (potential node to be evaluated)
-			Node* candidate = &maze[neighbours[i]];
-			if (candidate->id == exitNode->id)
+			Node candidate = maze[neighbours[i]];
+			if (candidate.id == exitNode.id)
 			{
 				return candidate;
 			}
- 			if (candidate->beenVisited)
+ 			if (candidate.beenVisited)
 			{
 				continue;
 			}
 			std::vector<bool> visitedCount;
 			//interate over neighbours of neighbour
-			for (int id : candidate->neighbourIDs)
+			for (int id : candidate.neighbourIDs)
 			{
 				Node subCandidate = maze[id];
 				if (subCandidate.beenVisited)
@@ -141,7 +145,7 @@
 			{
 				if (i == neighbours.size() -1)
 				{					
-					return GetPreviousNode(node);;
+					StepBack();
 				}
 				continue;
 			}
@@ -205,16 +209,16 @@
 
 	void MazeGraph::PrintNodes()
 	{
-		for (Node n : maze)
+		for (Node& n : maze)
 			for(int i : n.neighbourIDs)
 		{
 				std::cout << n.id << ": " << i << std::endl;
 		}
 	}
 
-	Node* MazeGraph::GetPreviousNode(Node* node)
+	Node MazeGraph::GetPreviousNode(Node node)
 	{
-		return &maze[node->origin];
+		return maze[node.origin];
 		// get index of current node in path substract 1
 		/*
 			auto targetIndex = std::find(path.begin(), path.end(), node.id);
@@ -239,19 +243,25 @@
 	// maintain a list of backtrack nodes
 	// if no more eligible neighbours try previous node, repeat
 
-	//nextStep, if no eligible neighbour, stepBack, try again -> until end is reached
+	//nextStep, if no eligible neighbour, stepBack, try again . until end is reached
 
 	void MazeGraph::NextStep()
 	{
 		//Push node to path
-		path.push_back(currentNode->id);
-		//Print current node - for DEBUGGING
-		std::cout << currentNode->id << std::endl;
+		path.push_back(currentNode.id);
 		//Calculate an eligible neighbour
-		Node* newNode = GetNextValidNode(currentNode);
-		std::cout << newNode->id << std::endl;
-		maze[newNode->id].origin = currentNode->id;
-		currentNode = &maze[newNode->id];
-		maze[newNode->id].beenVisited = true;
-		maze[newNode->id].part = Node::PARTS::PATH;
+		Node newNode = GetNextValidNode(currentNode);
+		std::cout << newNode.id << std::endl;
+		maze[newNode.id].origin = currentNode.id;
+		currentNode = maze[newNode.id];
+		maze[newNode.id].beenVisited = true;
+		maze[newNode.id].part = Node::PARTS::PATH;
+	}
+
+	void MazeGraph::StepBack()
+	{
+		Node prevNode = maze[currentNode.origin];
+		currentNode = prevNode;
+		std::cout << currentNode.id << std::endl;
+
 	}

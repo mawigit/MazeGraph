@@ -1,2 +1,7 @@
 ﻿  main.cpp
+  Maze.cpp
+  MazeGraph.cpp
+C:\Users\marku\Documents\FH\Advanced Programming\MazeGraph\MazeGraph\src\MazeGraph.cpp(12,34): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
+C:\Users\marku\Documents\FH\Advanced Programming\MazeGraph\MazeGraph\src\MazeGraph.cpp(157): warning C4715: 'MazeGraph::GetNextValidNode': not all control paths return a value
   MazeGraph.vcxproj -> C:\Users\marku\Documents\FH\Advanced Programming\MazeGraph\x64\Debug\MazeGraph.exe
