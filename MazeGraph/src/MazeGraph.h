@@ -25,6 +25,7 @@ public:
 	void PrintGraph();
 	void SetNeighbours();
 	void SetStart();
+	void SetExit();
 	int startNode;
 	int exitNode;
 	void FindPath();
@@ -33,8 +34,7 @@ public:
 	void PrintPath();
 	void PlotMaze();
 	void PrintNodes();
-	bool IsEdge(Node node);
-	bool IsTop(Node node);
+	int GetPreviousNodeIndex(Node node);
 
 	template <typename T>
 	void EraseFromVector(std::vector<T>& in, T value);

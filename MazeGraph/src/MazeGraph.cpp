@@ -37,11 +37,11 @@
 	{
 		for (Node& node : maze)
 		{
-			//if (node.position.x > 0)
-			//{
-			//	//return top node -1/gleich
-			//	node.neighbourIDs.push_back(node.id - cols);
-			//}
+			if (node.position.x > 0)
+			{
+				//return top node -1/gleich
+				node.neighbourIDs.push_back(node.id - cols);
+			}
 			if (node.position.y < cols -1)
 			{
 			//return right node gleich/+1
@@ -67,16 +67,25 @@
 		node.part = Node::PARTS::START;
 		startNode = node.id;
 		node.beenVisited = true;
-		//std::cout << "Start Node ID: " << startNode << std::endl;;
+		std::cout << "START Node ID: " << startNode << std::endl;;
+	}
 
+	void MazeGraph::SetExit()
+	{
+		Node& node = maze[maze.size() - rand() % rows];
+		node.part = Node::PARTS::EXIT;
+		exitNode = node.id;
+		node.beenVisited = true;
+		std::cout << "EXIT Node ID: " << exitNode << std::endl;;
 	}
 
 	void MazeGraph::FindPath()
 	{
 		Node* curNode = &maze[startNode];
 		path.push_back(curNode->id);
-		while (curNode->position.x != rows-1)
+		while (curNode->id != exitNode)
 		{
+			std::cout << curNode->id << std::endl;
 			int neighbourNodeID = GetNextValidNode(*curNode);
 			curNode = &maze[neighbourNodeID];
 			maze[neighbourNodeID].beenVisited = true;
@@ -98,11 +107,12 @@
 		std::random_device rng;
 		std::mt19937 urng(rng());
 		std::shuffle(neighbours.begin(), neighbours.end(), urng);
+		bool noNeighbourFound = false;
 		//iterate over neighbours of node
-		for(int i : neighbours)
+		for(int i = 0; i <= neighbours.size()-1; i++)
 		{
 			//declare candidate (potential node to be evaluated)
-			Node candidate = maze[i];
+			Node candidate = maze[neighbours[i]];
  			if (candidate.beenVisited)
 			{
 				continue;
@@ -117,8 +127,13 @@
 					visitedCount.push_back(true);
 				}
 			}
-			if (visitedCount.size() > 0)
+			if (visitedCount.size() > 1)
 			{
+				if (i == neighbours.size() -1)
+				{
+					int bla = GetPreviousNodeIndex(node);
+					return bla;
+				}
 				continue;
 			}
 			else
@@ -188,19 +203,27 @@
 		}
 	}
 
-	bool MazeGraph::IsEdge(Node node)
+	int MazeGraph::GetPreviousNodeIndex(Node node)
 	{
-		if (node.position.y == 0 || node.position.y == (cols - 1))
-		{
-			return true;
+		// get index of current node in path substract 1
+	
+			auto targetIndex = std::find(path.begin(), path.end(), node.id);
+
+			if (targetIndex != path.end())
+			{
+				int index = targetIndex - path.begin();
+				//std::cout << index << std::endl;
+				int foo = path[index-1];
+				return foo;
+			}
+			else
+			{
+				// If the element is not 
+				// present in the vector 
+				std::cout << "INDEX NOT IN VECTOR" << std::endl;
 		}
 	}
 
-	bool MazeGraph::IsTop(Node node)
-	{
-		if (node.position.x == 0)
-		{
-			return true;
-		}
-	}
-
+	// Implement backtrack logic to know whic node caused the problematic path and choose another
+	// maintain a list of backtrack nodes
+	// if no more eligible neighbours try previous node, repeat
