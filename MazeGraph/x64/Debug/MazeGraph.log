@@ -1,6 +1,2 @@
-﻿  MazeGraph.cpp
-C:\sandbox\C++\APRG\MazeGraph\MazeGraph\src\MazeGraph.cpp(12,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\sandbox\C++\APRG\MazeGraph\MazeGraph\src\MazeGraph.cpp(214,15): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
-C:\sandbox\C++\APRG\MazeGraph\MazeGraph\src\MazeGraph.cpp(225): warning C4715: 'MazeGraph::GetPreviousNodeIndex': not all control paths return a value
-C:\sandbox\C++\APRG\MazeGraph\MazeGraph\src\MazeGraph.cpp(144): warning C4715: 'MazeGraph::GetNextValidNode': not all control paths return a value
-  MazeGraph.vcxproj -> C:\sandbox\C++\APRG\MazeGraph\x64\Debug\MazeGraph.exe
+﻿  main.cpp
+  MazeGraph.vcxproj -> C:\Users\marku\Documents\FH\Advanced Programming\MazeGraph\x64\Debug\MazeGraph.exe

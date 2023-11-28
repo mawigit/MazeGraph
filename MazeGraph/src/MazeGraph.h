@@ -26,15 +26,18 @@ public:
 	void SetNeighbours();
 	void SetStart();
 	void SetExit();
-	int startNode;
-	int exitNode;
+	Node* startNode;
+	Node* exitNode;
 	void FindPath();
 	std::vector<int> path;
-	int GetNextValidNode(Node& node);
+	Node* GetNextValidNode(Node* node);
 	void PrintPath();
 	void PlotMaze();
 	void PrintNodes();
-	int GetPreviousNodeIndex(Node node);
+	Node* GetPreviousNode(Node* node);
+	bool isPrevNode;
+	void NextStep();
+	Node* currentNode;
 
 	template <typename T>
 	void EraseFromVector(std::vector<T>& in, T value);
